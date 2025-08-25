@@ -60,3 +60,17 @@ int main() {
     system("pause");
     return 0;
 }
+
+void CreateBinaryFile(const std::string& Textfilename, const std::string& Binaryfilename){
+  std::ifstream file1_in(Textfilename);
+  std::ofstream file11_in(Binaryfilename,std::ios::binary);
+
+  std::string line;
+
+    while (std::getline(file1_in, line)) {
+      file11_in.write(line.c_str(), line.size());
+      file11_in.put('\n');
+    }
+    file1_in.close();
+    file11_in.close();
+}
