@@ -26,10 +26,6 @@ int main() {
         EmptyCheck(file2_in, "file2.txt");
 
         std::cout << "Все файлы успешно открыты и не пустые!" << std::endl;
-
-        //CreateBinaryFile("file1.txt","Marks-file.bin");
-        //marks.close();
-        //OutputBinFile("Marks-file.bin");
         WriteAllStudents(marks,stud_arr,stud_count);
 
     }
@@ -40,7 +36,6 @@ int main() {
         std::cerr << "Неизвестная ошибка: " << e.what() << std::endl;
     }
 
-    //system("pause");
     return 0;
 }
 
