@@ -115,7 +115,8 @@ void writeOneStudentToBinary(std::ofstream& file, Student student) {
 void WriteAllStudentsAverage(std::ofstream& file, Student* stud_arr,int stud_count){
     for(int32_t i{};i<stud_count;++i){
         writeOneStudentToBinary(file,stud_arr[i]);
-        OutputAverageScore(CalculateAverageScore(stud_arr[i]), file);
+        file.put(';');
+        OutputDecimalWithTwoDigits(stud_arr[i].average, file);
         file.put('\n');
     }
 }
@@ -129,15 +130,24 @@ void WriteAllStudents(std::ofstream& file, Student* stud_arr, int stud_count) {
 }
 
 
-void OutputAverageScore(double a, std::ofstream& out){
-    out.write(";AVG:", sizeof(";AVG"));
-    out.put('0' + (int)a);
-    out.put('.');
-    for (int i{}; i < 2; ++i){
-        a -= (int)a;
-        a *= 10;
-        out.put('0' + (int)a);
+void OutputDecimalWithTwoDigits(double a, std::ofstream& out)
+{
+    if (a == 10)
+    {
+        out.write("10", sizeof("10"));
     }
+    else
+    {
+        out.put('0' + (int)a);
+        out.put('.');
+        for (int i{}; i < 2; ++i)
+        {
+            a -= (int)a;
+            a *= 10;
+            out.put('0' + (int)a);
+        }
+    }
+    
 }
 
 

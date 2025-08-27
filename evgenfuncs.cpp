@@ -99,9 +99,11 @@ Student * FormArrOfStuds(Student *& stud_arr, int stud_count, std::ifstream& fir
                 stud_arr[i].ma_mark = buffer.ma_mark;
                 stud_arr[i].geo_mark = buffer.geo_mark;
                 stud_arr[i].prog_mark = buffer.prog_mark;
+                stud_arr[i].average = ((double)(buffer.geo_mark + buffer.ma_mark + buffer.prog_mark)) / 3.0;
                 break;
             }
         }
+
     }
     return stud_arr;
 }

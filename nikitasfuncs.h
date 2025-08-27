@@ -14,6 +14,7 @@ struct Student {
     int32_t ma_mark;
     int32_t geo_mark;
     int32_t prog_mark;
+    double average;
 };
 void OpenCheck(std::ifstream& file, const std::string& filename);
 void OutputOpenCheck(std::ofstream& file, const std::string& filename);
@@ -32,6 +33,6 @@ std::string GetOneWordFromFile(std::ifstream& in);
 void blabla(int a, std::ofstream& out);
 void WriteAllStudents(std::ofstream& file, Student* stud_arr,int stud_count);
 void WriteAllStudentsAverage(std::ofstream& file, Student* stud_arr, int stud_count);
-void OutputAverageScore(double a, std::ofstream& out);
+void OutputDecimalWithTwoDigits(double a, std::ofstream& out);
 double CalculateAverageScore(Student st);
 #endif
