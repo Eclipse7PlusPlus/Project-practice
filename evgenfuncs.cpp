@@ -1,4 +1,5 @@
-#include "evgenhead.h"
+
+#include "nikitasfuncs.h"
 
 void FillBinFile(std::string FileName, std::string BinFileName)
 {

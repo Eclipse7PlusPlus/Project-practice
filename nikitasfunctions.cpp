@@ -1,1 +1,117 @@
+#include "nikitasfuncs.h"
+void OpenCheck(std::ifstream& file, const std::string& filename) {
+    if (!file.is_open()) {
+        throw std::runtime_error("Не удалось открыть файл: " + filename);
+    }
+}
 
+void OutputOpenCheck(std::ofstream& file, const std::string& filename) {
+    if (!file.is_open()) {
+        throw std::runtime_error("Не удалось создать файл: " + filename);
+    }
+}
+
+void EmptyCheck(std::ifstream& file, const std::string& filename) {
+    file.seekg(0, std::ios::end);
+    if (file.tellg() == 0) {
+        throw std::runtime_error("Файл пустой: " + filename);
+    }
+    file.seekg(0, std::ios::beg);
+}
+
+void CreateBinaryFile(const std::string& Textfilename, const std::string& Binaryfilename){
+  std::ifstream file1_in(Textfilename);
+  std::ofstream file11_in(Binaryfilename,std::ios::binary);
+
+  std::string line;
+
+    while (std::getline(file1_in, line)) {
+      file11_in.write(line.c_str(), line.size());
+      file11_in.put('\n');
+    }
+    file1_in.close();
+    file11_in.close();
+}
+
+Student parseMarksLine(const std::string& line){
+
+  Student student;
+  std::istringstream iss(line);
+  std::string token;
+  std::getline(iss, token, ';'); // пропуск номера группы
+    std::getline(iss, token, ';');
+    student.zachet_number = std::stoi(token);
+    
+    std::getline(iss, token, ';'); // "МА"
+    std::getline(iss, token, ';');
+    student.ma_mark = std::stoi(token);
+    
+    std::getline(iss, token, ';'); // "ГЕО"
+    std::getline(iss, token, ';');
+    student.geo_mark = std::stoi(token);
+    
+    std::getline(iss, token, ';'); // "ПРОГ"
+    std::getline(iss, token, ';');
+    student.prog_mark = std::stoi(token);
+    
+    return student;
+}
+Student parseStudentLine(const std::string& line) {
+    Student student;
+    std::istringstream iss(line);
+    std::string token;
+    
+    std::getline(iss, token, ';');
+    student.zachet_number = std::stoi(token);
+    
+    std::getline(iss, student.surname, ';');
+    std::getline(iss, student.name, ';');
+    std::getline(iss, student.patronymic, ';');
+    
+    student.ma_mark = 0;
+    student.geo_mark = 0;
+    student.prog_mark = 0;
+    
+    return student;
+}
+
+void blabla(int a, std::ofstream& out)
+{
+    int b{};
+    while(a!= 0)
+    {
+        b = 10*b + a%10;
+        a /= 10;
+    }
+    while(b!=0)
+    {
+        out.put('0' + b%10);
+        b/=10;
+    }
+}
+
+
+void writeOneStudentToBinary(std::ofstream& file, Student student) { 
+    blabla(student.zachet_number,file);
+    file.put(';');
+    file.write(student.surname.c_str(), student.surname.size());
+     file.put(';');
+    
+    file.write(student.name.c_str(), student.name.size());
+    file.put(';');
+    file.write(student.patronymic.c_str(), student.patronymic.size());
+
+    file.put(';');
+    blabla(student.ma_mark,file);
+    file.put(';');
+    blabla(student.geo_mark,file);
+    file.put(';');
+    blabla(student.prog_mark,file);
+    file.put('\n');
+}
+
+void WriteAllStudents(std::ofstream& file, Student* stud_arr,int stud_count){
+    for(int32_t i{};i<stud_count;++i){
+        writeOneStudentToBinary(file,stud_arr[i]);
+    }
+}
