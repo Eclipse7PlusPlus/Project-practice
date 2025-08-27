@@ -35,19 +35,17 @@ void WriteAllStudents(std::fstream& file, Student* stud_arr,int stud_count);
 void WriteAllStudentsAverage(std::fstream& file, Student* stud_arr, int stud_count);
 void OutputDecimalWithTwoDigits(double a, std::fstream& out);
 double CalculateAverageScore(Student st);
-bool CheckingStudentMarks(Student st);
-void GenerateListOfLowScoreStudents(Student* stud_arr, int stud_count, std::fstream& file);
-int32_t Compare(const void* x1, const void* x2);
-int32_t CountLowScoreStudents(Student * stud_arr, int32_t stud_count);
-Student* CreateArrWithtLowScoreStudents(Student* stud_arr, int32_t stud_count, int32_t& low_count);
-void SortByGroupNumber(Student* arr, int32_t count);
-int32_t CompareInGroupBySurname(const void* x1, const void* x2);
-void SortStudentsByGroupThenSurname(Student* arr, int32_t count);
 bool numCompare(Student first, Student second);
 bool nameCompare(Student first, Student second);
 void sort(Student* stud_arr, int stud_count);
 void selectionSort(Student *arr, int length, bool (*func_of_comp)(Student, Student));
 size_t returnIdxOfEdgeElem(Student * arr, int length, bool (*func_of_comp)(Student, Student));
-
-
+bool checkStupid(Student stud);
+bool averageCompare(Student first, Student second);
+void PutStudentInList(std::fstream& file, Student stud);
+void taskDE(std::fstream& file, Student * stud_arr, int stud_count);
+void taskGG(std::fstream& file, Student * stud_arr, int stud_count, int group_number);
+void taskHH(std::fstream& file, Student *& stud_arr, int stud_count, int group_number);
+bool checkClever(Student stud);
+void taskII(std::fstream& file, Student* stud_arr, int stud_count);
 #endif

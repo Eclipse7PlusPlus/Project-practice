@@ -155,3 +155,252 @@ double CalculateAverageScore(Student st) {
     return (st.ma_mark + st.geo_mark + st.prog_mark) / 3.0;
 }
 
+void FillBinFile(std::string FileName, std::string BinFileName)
+{
+    std::ifstream in(FileName);
+    std::ofstream out(BinFileName,std::ios::binary);
+    char buffer{};
+    while (in.get(buffer))
+    {
+        out.put(buffer);
+    }
+    in.close();
+    out.close();
+}
+
+void OutputBinFile(std::string FileName)
+{
+    char buffer{};
+    std::ifstream in(FileName, std::ios::binary);
+    while(in.get(buffer))
+    {
+        std::cout << buffer;
+    }
+    in.close();
+}
+
+
+std::string GetOneWordFromFile(std::ifstream& in)
+{
+    std::string result{};
+    char buffer{};
+    while(in.get(buffer) && buffer != '\n' && buffer != ';')
+    {
+        result += buffer;
+    }
+    return result;
+}
+
+
+void FillOneStudentFromFirstFile(std::ifstream & in, Student& stud)
+{
+    stud.zachet_number = stoi(GetOneWordFromFile(in));
+    stud.surname = GetOneWordFromFile(in);
+    stud.name = GetOneWordFromFile(in);
+    stud.patronymic = GetOneWordFromFile(in);
+}
+
+
+void FillOneStudentFromSecondFile(std::ifstream & in, Student& stud)
+{
+    stud.group = stoi(GetOneWordFromFile(in));
+    stud.zachet_number = stoi(GetOneWordFromFile(in));
+    GetOneWordFromFile(in);
+    stud.ma_mark = stoi(GetOneWordFromFile(in));
+    GetOneWordFromFile(in);
+    stud.geo_mark = stoi(GetOneWordFromFile(in));
+    GetOneWordFromFile(in);
+    stud.prog_mark = stoi(GetOneWordFromFile(in));
+}
+
+
+
+int CountStudents(std::ifstream& in)
+{
+    int res{};
+    char buffer{};
+    while(in.get(buffer))
+    {
+        if (buffer == '\n')
+        {
+            ++res;
+        }
+    }
+    in.clear();
+    in.seekg(std::ios::beg);
+    return res;
+}
+
+Student * FormArrOfStuds(Student *& stud_arr, int stud_count, std::ifstream& firstFile, std::ifstream& secondFile)
+{
+    stud_arr = new Student[stud_count];
+    for(int i = 0; i < stud_count; ++i)
+    {
+        FillOneStudentFromFirstFile(firstFile, stud_arr[i]);
+    }
+
+
+
+    Student buffer{};
+    for (int j = 0; j < stud_count; ++j)
+    {
+        FillOneStudentFromSecondFile(secondFile, buffer);
+        for(int i = 0; i < stud_count; ++i)
+        {
+            if(stud_arr[i].zachet_number == buffer.zachet_number)
+            {
+                stud_arr[i].group = buffer.group;
+                stud_arr[i].ma_mark = buffer.ma_mark;
+                stud_arr[i].geo_mark = buffer.geo_mark;
+                stud_arr[i].prog_mark = buffer.prog_mark;
+                stud_arr[i].average = ((double)(buffer.geo_mark + buffer.ma_mark + buffer.prog_mark)) / 3.0;
+                break;
+            }
+        }
+
+    }
+    return stud_arr;
+}
+
+size_t returnIdxOfEdgeElem(Student * arr, int length, bool (*func_of_comp)(Student, Student))
+{
+    Student temp{arr[0]};
+    size_t idx{};
+    for (int i = 0; i < length; ++i)
+    {
+        if (func_of_comp(arr[i], temp))
+        {
+            idx = i;
+            temp = arr[i];
+        }
+    }
+    return idx;
+}
+
+void selectionSort(Student *arr, int length, bool (*func_of_comp)(Student, Student))
+{
+    for (int i = 0; i < length; ++i)
+    {
+        std::swap(arr[i], arr[i + returnIdxOfEdgeElem(arr + i, length - i, func_of_comp)]);
+    }
+}
+
+
+bool numCompare(Student first, Student second)
+{
+    return first.group < second.group;
+}
+
+bool nameCompare(Student first, Student second)
+{
+    return first.surname + first.name + first.patronymic < second.surname + second.name + second.patronymic;
+}
+
+void sort(Student* stud_arr, int stud_count)
+{
+    selectionSort(stud_arr, stud_count, numCompare);
+    for (int i{}; i < stud_count; ++i)
+    {
+        for(int j = i; j < stud_count; ++j)
+        {
+            if (j == stud_count-1 || stud_arr[i].group != stud_arr[j+1].group)
+            {
+                selectionSort(&(stud_arr[i]), j - i + 1, nameCompare);
+                i = j;
+                break;
+            }
+        }
+    }
+   
+}
+
+
+bool checkStupid(Student stud)
+{
+    return stud.ma_mark < 4 || stud.geo_mark < 4 || stud.prog_mark < 4;
+}
+
+bool averageCompare(Student first, Student second)
+{
+    return first.average > second.average;
+}
+
+void PutStudentInList(std::fstream& file, Student stud)
+{
+    blabla(stud.group, file);
+            file.put(';');
+            blabla(stud.zachet_number, file);
+            file.put(';');
+            file.write((stud.surname).c_str(), stud.surname.size());
+            file.put('\n');
+}
+
+
+void taskDE(std::fstream& file, Student * stud_arr, int stud_count)
+{
+    for(int i{}; i < stud_count; ++i)
+    {
+        if(checkStupid(stud_arr[i]))
+        {
+            PutStudentInList(file, stud_arr[i]);
+        }
+    }
+}
+
+
+void taskGG(std::fstream& file, Student * stud_arr, int stud_count, int group_number)
+{
+    int counter{};
+    while(stud_arr[counter].group != group_number && counter < stud_count)
+    {
+        ++counter;
+    }
+    while(stud_arr[counter].group == group_number && counter < stud_count)
+    {
+        PutStudentInList(file, stud_arr[counter]);
+        ++counter;
+    }
+}
+
+
+void taskHH(std::fstream& file, Student *& stud_arr, int stud_count, int group_number)
+{
+    int left{};
+    while(stud_arr[left].group != group_number && left < stud_count)
+    {
+        ++left;
+    }
+    int right = left;
+    while(stud_arr[right].group == group_number && right < stud_count)
+    {
+        ++right;
+    }
+    --right;
+    selectionSort(&stud_arr[left], right - left + 1, averageCompare);
+    for(int i = left; i < right; ++i)
+    {
+        PutStudentInList(file, stud_arr[i]);
+        file.put('\n');
+    }
+    selectionSort(&stud_arr[left], right - left + 1, nameCompare);
+}
+
+
+bool checkClever(Student stud)
+{
+    return stud.geo_mark >= 8 && stud.ma_mark >= 8 && stud.prog_mark >= 8;
+}
+
+
+void taskII(std::fstream& file, Student* stud_arr, int stud_count)
+{
+    for (int i{}; i < stud_count; ++i)
+    {
+        if(checkClever(stud_arr[i]))
+        {
+            PutStudentInList(file, stud_arr[i]);
+        }
+    }
+}
+
+
