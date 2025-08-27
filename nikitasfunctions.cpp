@@ -154,3 +154,75 @@ void OutputDecimalWithTwoDigits(double a, std::ofstream& out)
 double CalculateAverageScore(Student st) {
     return (st.ma_mark + st.geo_mark + st.prog_mark) / 3.0;
 }
+
+
+bool CheckingStudentMarks(Student st) {
+    return ((st.ma_mark < 4) || (st.geo_mark < 4) || (st.prog_mark < 4));
+}
+
+void GenerateListOfLowScoreStudents(Student* stud_arr, int stud_count, std::fstream& file) {
+    for (int i{}; i < stud_count; ++i)
+    {
+        if (CheckingStudentMarks(stud_arr[i]))
+        {
+            blabla(st.group, file);
+            file.put(';');
+            blabla(st.zachet_number, file);
+            file.put(';');
+            file.write(st.surname.c_str(), st.surname.size());
+            file.put('\n');
+        }
+    }
+    
+}
+
+
+int32_t CountLowScoreStudents(Student* stud_arr, int32_t stud_count) {
+    int32_t count{};
+        for (int32_t i{}; i < stud_count; ++i) {
+            if (CheckingStudentMarks(stud_arr[i])) {
+                ++count;
+            }
+        }
+        return count;
+ }
+
+
+Student* CreateArrWithtLowScoreStudents(Student * stud_arr, int32_t stud_count, int32_t& low_count) {
+    low_count = CountLowScoreStudents(stud_arr, stud_count);
+    if (low_count == 0) {
+        return nullptr;
+    }
+
+            Student* low_score_arr = new Student[low_count];
+            int index = 0;
+            for (int i = 0; i < stud_count; ++i) {
+                if (CheckingStudentMarks(stud_arr[i])) {
+                    low_score_arr[index++] = stud_arr[i];
+                }
+            }
+            return low_score_arr;
+        }
+
+
+void SortByGroupNumber(Student* arr,int32_t count){
+    qsort(arr, count, sizeof(Student), Compare);
+}
+
+
+int32_t Compare(const void* x1, const void* x2){
+    return ((Student*)x1->group - (Student*)x2->group);           
+}
+
+
+int32_t CompareInGroupBySurname(const void* x1, const void* x2) {
+    if ((Student*)x1->group != (Student*)x2->group) {
+        return (Student*)x1->group - (Student*)x2->group;
+    }
+    return ((Student*)x1->surname.Compare((Student*)x2->surname);
+}
+
+
+void SortStudentsByGroupThenSurname(Student* arr, int32_t count) {
+    qsort(arr, count, sizeof(Student), CompareInGroupBySurname);
+}

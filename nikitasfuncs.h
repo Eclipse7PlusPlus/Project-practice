@@ -35,4 +35,12 @@ void WriteAllStudents(std::ofstream& file, Student* stud_arr,int stud_count);
 void WriteAllStudentsAverage(std::ofstream& file, Student* stud_arr, int stud_count);
 void OutputDecimalWithTwoDigits(double a, std::ofstream& out);
 double CalculateAverageScore(Student st);
+bool CheckingStudentMarks(Student st);
+void GenerateListOfLowScoreStudents(Student* stud_arr, int stud_count, std::fstream& file);
+int32_t Compare(const void* x1, const void* x2);
+int32_t CountLowScoreStudents(Student * stud_arr, int32_t stud_count);
+Student* CreateArrWithtLowScoreStudents(Student* stud_arr, int32_t stud_count, int32_t& low_count);
+void SortByGroupNumber(Student* arr, int32_t count);
+int32_t CompareInGroupBySurname(const void* x1, const void* x2);
+void SortStudentsByGroupThenSurname(Student* arr, int32_t count);
 #endif

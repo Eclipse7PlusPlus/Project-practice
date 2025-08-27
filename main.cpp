@@ -10,7 +10,7 @@ int main() {
     try {
         std::ifstream file1_in("file1.txt");
         std::ifstream file2_in("file2.txt");
-        std::ofstream marks("Marks-file.bin", std::ios::binary);
+        std::fstream marks("Marks-file.bin", std::ios::binary);
         FillBinFile("file1.txt", "1file.bin");
         FillBinFile("file2.txt", "2file.bin");
         std::ifstream ff("1file.bin", std::ios::binary);
@@ -27,7 +27,19 @@ int main() {
         EmptyCheck(file2_in, "file2.txt");
 
         std::cout << "Все файлы успешно открыты и не пустые!" << std::endl;
-        WriteAllStudentsAverage(marks, stud_arr, stud_count);
+        GenerateListOfLowScoreStudents(stud_arr, stud_count, marks);
+        int32_t counter = CountLowScoreStudents(stud_arr, stud_count);
+        SortByGroupNumber(stud_arr, counter);
+        int32_t lowCount{};
+        Student * lowScoreStudents = CreateArrWithtLowScoreStudents(stud_arr,stud_count,lowCount);
+        if (lowScoreStudents) {
+            SortStudentsByGroupThenSurname(lowScoreStudents, low_count);
+        }
+        else
+        {
+            std::cout << "Net s ballom < 4";
+        }
+
 
     }
     catch (const std::runtime_error& e) {
@@ -36,6 +48,8 @@ int main() {
     catch (const std::exception& e) {
         std::cerr << "Неизвестная ошибка: " << e.what() << std::endl;
     }
+
+    delete[] lowScoreStudents;
 
     return 0;
 }
