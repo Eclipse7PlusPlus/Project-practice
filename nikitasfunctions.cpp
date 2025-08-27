@@ -78,15 +78,18 @@ Student parseStudentLine(const std::string& line) {
 void blabla(int a, std::ofstream& out)
 {
     int b{};
+    int digit_count{};
     while(a!= 0)
     {
         b = 10*b + a%10;
         a /= 10;
+        ++digit_count;
     }
-    while(b!=0)
+    while(digit_count != 0)
     {
         out.put('0' + b%10);
         b/=10;
+        --digit_count;
     }
 }
 
@@ -123,4 +126,21 @@ void WriteAllStudents(std::ofstream& file, Student* stud_arr, int stud_count) {
         writeOneStudentToBinary(file, stud_arr[i]);
         file.put('\n');
     }
+}
+
+
+void OutputAverageScore(double a, std::ofstream& out){
+    out.write(";AVG:", sizeof(";AVG"));
+    out.put('0' + (int)a);
+    out.put('.');
+    for (int i{}; i < 2; ++i){
+        a -= (int)a;
+        a *= 10;
+        out.put('0' + (int)a);
+    }
+}
+
+
+double CalculateAverageScore(Student st) {
+    return (st.ma_mark + st.geo_mark + st.prog_mark) / 3.0;
 }
