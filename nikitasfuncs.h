@@ -16,13 +16,13 @@ struct Student {
     int32_t prog_mark;
     double average;
 };
-void OpenCheck(std::ifstream& file, const std::string& filename);
-void OutputOpenCheck(std::ofstream& file, const std::string& filename);
-void EmptyCheck(std::ifstream& file, const std::string& filename);
+void OpenCheck(std::fstream& file, const std::string& filename);
+void OutputOpenCheck(std::fstream& file, const std::string& filename);
+void EmptyCheck(std::fstream& file, const std::string& filename);
 void CreateBinaryFile(const std::string& Textfilename, const std::string& Binaryfilename);
 Student parseMarksLine(const std::string& line);
 Student parseStudentLine(const std::string& line);
-void writeOneStudentToBinary(std::ofstream& file,Student student);
+void writeOneStudentToBinary(std::fstream& file,Student student);
 void FillBinFile(std::string FileName, std::string BinFileName);
 void OutputBinFile(std::string BinFileName);
 Student* FormArrOfStuds(Student *& stud_arr, int stud_count, std::ifstream& firstFile, std::ifstream& secondFile);
@@ -30,10 +30,10 @@ int CountStudents(std::ifstream& in);
 void FillOneStudentFromSecondFile(std::ifstream & in, Student& stud);
 void FillOneStudentFromFirstFile(std::ifstream & in, Student& stud);
 std::string GetOneWordFromFile(std::ifstream& in);
-void blabla(int a, std::ofstream& out);
-void WriteAllStudents(std::ofstream& file, Student* stud_arr,int stud_count);
-void WriteAllStudentsAverage(std::ofstream& file, Student* stud_arr, int stud_count);
-void OutputDecimalWithTwoDigits(double a, std::ofstream& out);
+void blabla(int a, std::fstream& out);
+void WriteAllStudents(std::fstream& file, Student* stud_arr,int stud_count);
+void WriteAllStudentsAverage(std::fstream& file, Student* stud_arr, int stud_count);
+void OutputDecimalWithTwoDigits(double a, std::fstream& out);
 double CalculateAverageScore(Student st);
 bool CheckingStudentMarks(Student st);
 void GenerateListOfLowScoreStudents(Student* stud_arr, int stud_count, std::fstream& file);
@@ -43,4 +43,11 @@ Student* CreateArrWithtLowScoreStudents(Student* stud_arr, int32_t stud_count, i
 void SortByGroupNumber(Student* arr, int32_t count);
 int32_t CompareInGroupBySurname(const void* x1, const void* x2);
 void SortStudentsByGroupThenSurname(Student* arr, int32_t count);
+bool numCompare(Student first, Student second);
+bool nameCompare(Student first, Student second);
+void sort(Student* stud_arr, int stud_count);
+void selectionSort(Student *arr, int length, bool (*func_of_comp)(Student, Student));
+size_t returnIdxOfEdgeElem(Student * arr, int length, bool (*func_of_comp)(Student, Student));
+
+
 #endif

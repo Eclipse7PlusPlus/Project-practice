@@ -8,9 +8,9 @@
 
 int main() {
     try {
-        std::ifstream file1_in("file1.txt");
-        std::ifstream file2_in("file2.txt");
-        std::fstream marks("Marks-file.bin", std::ios::binary);
+        std::fstream file1_in("file1.txt", std::ios::in);
+        std::fstream file2_in("file2.txt", std::ios::in);
+        std::fstream marks("Marks-file.bin", std::ios::binary | std::ios::out);
         FillBinFile("file1.txt", "1file.bin");
         FillBinFile("file2.txt", "2file.bin");
         std::ifstream ff("1file.bin", std::ios::binary);
@@ -27,18 +27,8 @@ int main() {
         EmptyCheck(file2_in, "file2.txt");
 
         std::cout << "Все файлы успешно открыты и не пустые!" << std::endl;
-        GenerateListOfLowScoreStudents(stud_arr, stud_count, marks);
-        int32_t counter = CountLowScoreStudents(stud_arr, stud_count);
-        SortByGroupNumber(stud_arr, counter);
-        int32_t lowCount{};
-        Student * lowScoreStudents = CreateArrWithtLowScoreStudents(stud_arr,stud_count,lowCount);
-        if (lowScoreStudents) {
-            SortStudentsByGroupThenSurname(lowScoreStudents, low_count);
-        }
-        else
-        {
-            std::cout << "Net s ballom < 4";
-        }
+        sort(stud_arr, stud_count);
+        WriteAllStudents(marks, stud_arr, stud_count);
 
 
     }
@@ -49,7 +39,7 @@ int main() {
         std::cerr << "Неизвестная ошибка: " << e.what() << std::endl;
     }
 
-    delete[] lowScoreStudents;
+
 
     return 0;
 }
