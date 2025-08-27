@@ -31,5 +31,7 @@ void FillOneStudentFromFirstFile(std::ifstream & in, Student& stud);
 std::string GetOneWordFromFile(std::ifstream& in);
 void blabla(int a, std::ofstream& out);
 void WriteAllStudents(std::ofstream& file, Student* stud_arr,int stud_count);
-
+void WriteAllStudentsAverage(std::ofstream& file, Student* stud_arr, int stud_count);
+void OutputAverageScore(double a, std::ofstream& out);
+double CalculateAverageScore(Student st);
 #endif

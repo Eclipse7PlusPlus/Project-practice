@@ -107,11 +107,20 @@ void writeOneStudentToBinary(std::ofstream& file, Student student) {
     blabla(student.geo_mark,file);
     file.put(';');
     blabla(student.prog_mark,file);
-    file.put('\n');
 }
 
-void WriteAllStudents(std::ofstream& file, Student* stud_arr,int stud_count){
+void WriteAllStudentsAverage(std::ofstream& file, Student* stud_arr,int stud_count){
     for(int32_t i{};i<stud_count;++i){
         writeOneStudentToBinary(file,stud_arr[i]);
+        OutputAverageScore(CalculateAverageScore(stud_arr[i]), file);
+        file.put('\n');
+    }
+}
+
+
+void WriteAllStudents(std::ofstream& file, Student* stud_arr, int stud_count) {
+    for (int32_t i{}; i < stud_count; ++i) {
+        writeOneStudentToBinary(file, stud_arr[i]);
+        file.put('\n');
     }
 }
