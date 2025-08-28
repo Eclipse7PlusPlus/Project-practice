@@ -387,7 +387,6 @@ void taskHH(std::fstream& file, Student *& stud_arr, int stud_count, int group_n
     for(int i = left; i < right; ++i)
     {
         PutStudentInList(file, stud_arr[i]);
-        file.put('\n');
     }
     selectionSort(&stud_arr[left], right - left + 1, nameCompare);
 }
