@@ -12,8 +12,10 @@ int main() {
         std::fstream file2_in("FILES/file2.txt", std::ios::in);
         std::fstream marks("FILES/Marks-file.bin", std::ios::binary | std::ios::out);
         std::fstream taskC("FILES/AverageScoreOfStudent.bin", std::ios::binary | std::ios::out);
+       
         FillBinFile("FILES/file1.txt", "FILES/1file.bin");
         FillBinFile("FILES/file2.txt", "FILES/2file.bin");
+       
         std::ifstream ff("FILES/1file.bin", std::ios::binary);
         std::ifstream sf("FILES/2file.bin", std::ios::binary);
         std::fstream taskD("FILES/TaskD.txt",std::ios::out);
@@ -27,7 +29,7 @@ int main() {
         OpenCheck(file1_in, "FILES/file1.txt");
         OpenCheck(file2_in, "FILES/file2.txt");
 
-        OutputOpenCheck(marks, "FILES/Marks-file.bin");
+        OpenCheck(marks, "FILES/Marks-file.bin");
 
         EmptyCheck(file1_in, "FILES/file1.txt");
         EmptyCheck(file2_in, "FILES/file2.txt");

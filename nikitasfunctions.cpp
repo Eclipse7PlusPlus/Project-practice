@@ -5,11 +5,6 @@ void OpenCheck(std::fstream& file, const std::string& filename) {
     }
 }
 
-void OutputOpenCheck(std::fstream& file, const std::string& filename) {
-    if (!file.is_open()) {
-        throw std::runtime_error("Не удалось создать файл: " + filename);
-    }
-}
 
 void EmptyCheck(std::fstream& file, const std::string& filename) {
     file.seekg(0, std::ios::end);
@@ -18,6 +13,7 @@ void EmptyCheck(std::fstream& file, const std::string& filename) {
     }
     file.seekg(0, std::ios::beg);
 }
+
 
 void CreateBinaryFile(const std::string& Textfilename, const std::string& Binaryfilename){
   std::ifstream file1_in(Textfilename);
@@ -32,6 +28,7 @@ void CreateBinaryFile(const std::string& Textfilename, const std::string& Binary
     file1_in.close();
     file11_in.close();
 }
+
 
 Student parseMarksLine(const std::string& line){
 
@@ -56,6 +53,8 @@ Student parseMarksLine(const std::string& line){
     
     return student;
 }
+
+
 Student parseStudentLine(const std::string& line) {
     Student student;
     std::istringstream iss(line);
@@ -74,6 +73,7 @@ Student parseStudentLine(const std::string& line) {
     
     return student;
 }
+
 
 void OutputIntToFile(int a, std::fstream& out)
 {
@@ -111,6 +111,7 @@ void writeOneStudentToBinary(std::fstream& file, Student student) {
     file.put(';');
     OutputIntToFile(student.prog_mark,file);
 }
+
 
 void WriteAllStudentsAverage(std::fstream& file, Student* stud_arr,int stud_count){
     for(int32_t i{};i<stud_count;++i){
@@ -155,6 +156,7 @@ double CalculateAverageScore(Student st) {
     return (st.ma_mark + st.geo_mark + st.prog_mark) / 3.0;
 }
 
+
 void FillBinFile(std::string FileName, std::string BinFileName)
 {
     std::ifstream in(FileName);
@@ -167,6 +169,7 @@ void FillBinFile(std::string FileName, std::string BinFileName)
     in.close();
     out.close();
 }
+
 
 void OutputBinFile(std::string FileName)
 {
@@ -214,7 +217,6 @@ void FillOneStudentFromSecondFile(std::ifstream & in, Student& stud)
 }
 
 
-
 int CountStudents(std::ifstream& in)
 {
     int res{};
@@ -231,6 +233,7 @@ int CountStudents(std::ifstream& in)
     return res;
 }
 
+
 Student * FormArrOfStuds(Student *& stud_arr, int stud_count, std::ifstream& firstFile, std::ifstream& secondFile)
 {
     stud_arr = new Student[stud_count];
@@ -238,8 +241,6 @@ Student * FormArrOfStuds(Student *& stud_arr, int stud_count, std::ifstream& fir
     {
         FillOneStudentFromFirstFile(firstFile, stud_arr[i]);
     }
-
-
 
     Student buffer{};
     for (int j = 0; j < stud_count; ++j)
@@ -262,6 +263,7 @@ Student * FormArrOfStuds(Student *& stud_arr, int stud_count, std::ifstream& fir
     return stud_arr;
 }
 
+
 size_t returnIdxOfEdgeElem(Student * arr, int length, bool (*func_of_comp)(Student, Student))
 {
     Student temp{arr[0]};
@@ -277,6 +279,7 @@ size_t returnIdxOfEdgeElem(Student * arr, int length, bool (*func_of_comp)(Stude
     return idx;
 }
 
+
 void selectionSort(Student *arr, int length, bool (*func_of_comp)(Student, Student))
 {
     for (int i = 0; i < length; ++i)
@@ -291,10 +294,12 @@ bool numCompare(Student first, Student second)
     return first.group < second.group;
 }
 
+
 bool nameCompare(Student first, Student second)
 {
     return first.surname + first.name + first.patronymic < second.surname + second.name + second.patronymic;
 }
+
 
 void sort(Student* stud_arr, int stud_count)
 {
@@ -320,10 +325,12 @@ bool checkStupid(Student stud)
     return stud.ma_mark < 4 || stud.geo_mark < 4 || stud.prog_mark < 4;
 }
 
+
 bool averageCompare(Student first, Student second)
 {
     return first.average > second.average;
 }
+
 
 void PutStudentInList(std::fstream& file, Student stud)
 {
@@ -402,5 +409,3 @@ void taskII(std::fstream& file, Student* stud_arr, int stud_count)
         }
     }
 }
-
-

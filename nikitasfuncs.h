@@ -17,7 +17,6 @@ struct Student {
     double average;
 };
 void OpenCheck(std::fstream& file, const std::string& filename);
-void OutputOpenCheck(std::fstream& file, const std::string& filename);
 void EmptyCheck(std::fstream& file, const std::string& filename);
 void CreateBinaryFile(const std::string& Textfilename, const std::string& Binaryfilename);
 Student parseMarksLine(const std::string& line);
