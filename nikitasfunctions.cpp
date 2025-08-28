@@ -75,7 +75,7 @@ Student parseStudentLine(const std::string& line) {
     return student;
 }
 
-void blabla(int a, std::fstream& out)
+void OutputIntToFile(int a, std::fstream& out)
 {
     int b{};
     int digit_count{};
@@ -95,7 +95,7 @@ void blabla(int a, std::fstream& out)
 
 
 void writeOneStudentToBinary(std::fstream& file, Student student) { 
-    blabla(student.zachet_number,file);
+    OutputIntToFile(student.zachet_number,file);
     file.put(';');
     file.write(student.surname.c_str(), student.surname.size());
      file.put(';');
@@ -105,11 +105,11 @@ void writeOneStudentToBinary(std::fstream& file, Student student) {
     file.write(student.patronymic.c_str(), student.patronymic.size());
 
     file.put(';');
-    blabla(student.ma_mark,file);
+    OutputIntToFile(student.ma_mark,file);
     file.put(';');
-    blabla(student.geo_mark,file);
+    OutputIntToFile(student.geo_mark,file);
     file.put(';');
-    blabla(student.prog_mark,file);
+    OutputIntToFile(student.prog_mark,file);
 }
 
 void WriteAllStudentsAverage(std::fstream& file, Student* stud_arr,int stud_count){
@@ -327,9 +327,9 @@ bool averageCompare(Student first, Student second)
 
 void PutStudentInList(std::fstream& file, Student stud)
 {
-    blabla(stud.group, file);
+    OutputIntToFile(stud.group, file);
             file.put(';');
-            blabla(stud.zachet_number, file);
+            OutputIntToFile(stud.zachet_number, file);
             file.put(';');
             file.write((stud.surname).c_str(), stud.surname.size());
             file.put('\n');

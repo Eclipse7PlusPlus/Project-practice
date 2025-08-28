@@ -30,7 +30,7 @@ int CountStudents(std::ifstream& in);
 void FillOneStudentFromSecondFile(std::ifstream & in, Student& stud);
 void FillOneStudentFromFirstFile(std::ifstream & in, Student& stud);
 std::string GetOneWordFromFile(std::ifstream& in);
-void blabla(int a, std::fstream& out);
+void OutputIntToFile(int a, std::fstream& out);
 void WriteAllStudents(std::fstream& file, Student* stud_arr,int stud_count);
 void WriteAllStudentsAverage(std::fstream& file, Student* stud_arr, int stud_count);
 void OutputDecimalWithTwoDigits(double a, std::fstream& out);
